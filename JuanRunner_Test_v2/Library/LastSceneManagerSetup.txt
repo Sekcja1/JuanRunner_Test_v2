@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/JuanRunner_Test_v2.unity
+- path: Assets/UnityFiles/ScriptsTest.unity
   isLoaded: 1
   isActive: 1
