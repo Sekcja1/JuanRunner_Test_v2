@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grass : IBlock
+public class Grass : IBase
 {
+    private Vector3 position;
+    
     // Use this for initialization
     public void Start()
     {
-        
+        Durability = 100;
+        Destroyable = true;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        
-    }
-
-    public void OnMouseDown()
-    {
-        Destroy(gameObject);
+        if (Destroyed)
+        {
+            Destroy(gameObject);
+        }
     }
 }
