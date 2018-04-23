@@ -1,4 +1,5 @@
 sceneSetups:
-- path: Assets/UnityFiles/ScriptsTest.unity
+- path: Assets/TeksturyTODO/Brutal 2D Adventure Mega Pack/Brutal 2D Adventure Jungle
+    Pack/Example/Example.unity
   isLoaded: 1
   isActive: 1

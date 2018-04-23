@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dirt : IBlock {
+public class Dirt : IBase
+{
+    // Use this for initialization
+    public void Start()
+    {
+        Durability = 100;
+        Destroyable = true;
 
-	// Use this for initialization
-	public void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	public void Update () {
-		
-	}
+    }
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (Destroyed)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
