@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dirt : IBase
+public class Dirt : IBlock
 {
     // Use this for initialization
     public void Start()

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Vuforia;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,20 +11,28 @@ public class PlayerMove : MonoBehaviour
     private Quaternion rotation;
 
     public int UseWeapon { get; set; }
-    public GameObject bullet;
-    public GameObject granade;
 
     public float speed = 2;
     private GameObject cross;
 
+    private List<IWeapon> weapons = new List<IWeapon>();
 
+    public GameObject pistolBullet;
+    public GameObject granade;
+    public GameObject mele;
+
+    private int showedInfo = 0;
     // Use this for initialization
     void Start()
     {
-        UseWeapon = 1;
+        UseWeapon = 0;
         gameObject = GameObject.Find("Player");
         cross = GameObject.Find("Aim");
         rotation = gameObject.transform.rotation;
+
+        weapons.Add(new Pistol() { AmmoCount = 50, AmmoPrefab = pistolBullet });
+        weapons.Add(new Granade() { AmmoCount = 20, AmmoPrefab = granade });
+        weapons.Add(new Mele() { AmmoPrefab = mele });
     }
 
     // Update is called once per frame
@@ -51,9 +59,13 @@ public class PlayerMove : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            UseWeapon = 1;
+            UseWeapon = 0;
         }
         if (Input.GetKey(KeyCode.Alpha2))
+        {
+            UseWeapon = 1;
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
         {
             UseWeapon = 2;
         }
@@ -69,36 +81,13 @@ public class PlayerMove : MonoBehaviour
         mousePos = Input.mousePosition;
         worldPos = cameraloc.ScreenToWorldPoint(mousePos);
         #endregion
-        cross.transform.position = worldPos + new Vector3(0,0,10);
+
+        cross.transform.position = worldPos + new Vector3(0, 0, 10);
 
         if (Input.GetMouseButtonDown(0))
         {
-            var a = worldPos;
-            a.z = position.z;
-            a.Normalize() ;
-            a *= 1.5F;
-
-            if (UseWeapon == 1)
-            {
-                var bullet = Instantiate(this.bullet, position + a, rotation);
-
-                bullet.GetComponent<Rigidbody2D>().AddForce(
-                    new Vector2(worldPos.x*1.2F, worldPos.y * 1.2F),
-                    ForceMode2D.Impulse);
-            }else if (UseWeapon == 2)
-            {
-                var bullet = Instantiate(this.granade, position + a, rotation);
-
-                bullet.GetComponent<Rigidbody2D>().AddForce(
-                    new Vector2(worldPos.x - position.x, worldPos.y - position.y),
-                    ForceMode2D.Impulse);
-            }
-
-
+            weapons[UseWeapon].Shoot(position, worldPos, rotation);
         }
-
-        //if (Input.GetMouseButtonDown(1))
-        //if (Input.GetMouseButtonDown(2))
     }
 
 }

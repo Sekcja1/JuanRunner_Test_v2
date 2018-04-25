@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grass : IBase
+public class Grass : IBlock
 {
     private Vector3 position;
     
