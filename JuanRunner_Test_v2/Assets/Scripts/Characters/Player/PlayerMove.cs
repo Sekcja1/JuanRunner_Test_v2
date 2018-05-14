@@ -51,7 +51,9 @@ public class PlayerMove : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            position.y += 2 * speed * Time.deltaTime;
+            Debug.Log("olsdkfjgol;kjsdfgl;kjdflgjdfkljglkdfjgklrd");
+            this.gameObject.GetComponent<Rigidbody2D>().
+                AddForce(transform.up * 2);
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {

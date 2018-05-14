@@ -5,6 +5,7 @@ using UnityEngine;
 public class Granade : IWeapon
 {
     public GameObject Particles;
+    public GameObject ExplosionEffect;
 
     public Granade()
     {
@@ -23,8 +24,13 @@ public class Granade : IWeapon
     // Use this for initialization
     void Start ()
     {
+        ExplosionEffect.gameObject.GetComponent<ParticleSystem>().Play();
         Particles.gameObject.GetComponent<ParticleSystem>().Play();
-        Destroy(gameObject, 1.5f);
+        //this.gameObject.
+        
+        
+        this.gameObject.GetComponent<AudioSource>().PlayDelayed(1f);
+        Destroy(gameObject, 1.2f);
     }
     
     // Update is called once per frame

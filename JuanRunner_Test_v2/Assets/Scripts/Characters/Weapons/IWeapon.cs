@@ -21,6 +21,8 @@ public abstract class IWeapon : MonoBehaviour
     public float ProjectileSpeed { get; set; }
     public float ProjectileRange { get; set; }
 
+    public GameObject ExplosionPrefab { get; set; }
+
     public void Shoot(Vector3 playerPosition, Vector3 clickPosition, Quaternion rotation)
     {
         if (AmmoCount > 0)
@@ -36,7 +38,6 @@ public abstract class IWeapon : MonoBehaviour
             Destroy(AmmoPrefab, ProjectileRange);
 
             AmmoCount--;
-            Debug.Log("Zostało ammo: " + AmmoCount + " dla " + Name);
         }
     }
 
@@ -44,18 +45,14 @@ public abstract class IWeapon : MonoBehaviour
     {
         if (Splash)
         {
+
             var element = Physics2D.OverlapCircleAll(transform.position, SplashRange);
 
-            Debug.Log(element);
-
-            Debug.Log("Ilość obiektów w zasięgu: " + element.Length);
-
-            for(var i=0;i<element.Length;i++)
-            //foreach (var item in element)
+            foreach (var t in element)
             {
-                element[i]./*item.*/gameObject.SendMessage("AddDamage", 100.0f);
-                Debug.Log(element[i].gameObject.name);
+                t.gameObject.SendMessage("AddDamage", 100.0f);
             }
+
         }
     }
 

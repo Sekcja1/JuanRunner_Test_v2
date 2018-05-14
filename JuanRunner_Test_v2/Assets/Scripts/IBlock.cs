@@ -139,7 +139,13 @@ public abstract class IBlock : MonoBehaviour
 
     public bool AddDamage(float damage)
     {
-        Debug.Log(damage);
+        try
+        {
+            this.gameObject.AddComponent<ParticleSystem>();
+        }
+        catch (Exception e)
+        {
+        }
         if (Destroyable)
         {
             Durability -= damage;
